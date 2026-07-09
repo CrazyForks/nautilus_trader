@@ -337,6 +337,10 @@ impl OrderEvent for OrderFilled {
         None
     }
 
+    fn activation_price(&self) -> Option<Price> {
+        None
+    }
+
     fn trigger_type(&self) -> Option<TriggerType> {
         None
     }

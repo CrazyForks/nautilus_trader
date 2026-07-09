@@ -964,6 +964,7 @@ mod tests {
             client_order_id: None,
             avg_px: None,
             trigger_price: None,
+            activation_price: None,
             trigger_type: None,
             contingency_type: ContingencyType::NoContingency,
             expire_time: None,

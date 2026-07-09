@@ -193,6 +193,10 @@ impl<'r> FromRow<'r, PgRow> for OrderInitializedModel {
             .try_get::<Option<&str>, _>("trigger_price")
             .ok()
             .and_then(|x| x.map(Price::from));
+        let activation_price = row
+            .try_get::<Option<&str>, _>("activation_price")
+            .ok()
+            .and_then(|x| x.map(Price::from));
         let trigger_type = row
             .try_get::<Option<&str>, _>("trigger_type")
             .ok()
@@ -280,7 +284,7 @@ impl<'r> FromRow<'r, PgRow> for OrderInitializedModel {
             ts_event,
             ts_init,
             price,
-            None, // activation_price not yet persisted to SQL
+            activation_price,
             trigger_price,
             trigger_type,
             limit_offset,
@@ -623,6 +627,10 @@ impl<'r> FromRow<'r, PgRow> for OrderSnapshotModel {
             .try_get::<Option<&str>, _>("trigger_price")
             .ok()
             .and_then(|x| x.map(Price::from));
+        let activation_price = row
+            .try_get::<Option<&str>, _>("activation_price")
+            .ok()
+            .and_then(|x| x.map(Price::from));
         let trigger_type = row
             .try_get::<Option<&str>, _>("trigger_type")
             .ok()
@@ -747,7 +755,7 @@ impl<'r> FromRow<'r, PgRow> for OrderSnapshotModel {
             quantity,
             price,
             trigger_price,
-            activation_price: None, // not yet persisted to SQL
+            activation_price,
             trigger_type,
             limit_offset,
             trailing_offset,

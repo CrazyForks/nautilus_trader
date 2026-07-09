@@ -287,6 +287,7 @@ pub fn parse_futures_ws_order_status_report(
         expire_time: None,
         price: None,
         trigger_price: None,
+        activation_price: None,
         trigger_type: None,
         limit_offset: None,
         trailing_offset: None,

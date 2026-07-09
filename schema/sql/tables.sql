@@ -86,6 +86,7 @@ CREATE TABLE IF NOT EXISTS "order" (
     quantity TEXT NOT NULL,
     price TEXT,
     trigger_price TEXT,
+    activation_price TEXT,
     trigger_type TEXT,
     limit_offset TEXT,
     trailing_offset TEXT,
@@ -118,6 +119,8 @@ CREATE TABLE IF NOT EXISTS "order" (
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
+-- Bring databases created before trailing-stop activation-price persistence forward
+ALTER TABLE "order" ADD COLUMN IF NOT EXISTS activation_price TEXT;
 
 CREATE TABLE IF NOT EXISTS "order_event" (
     id TEXT PRIMARY KEY NOT NULL,
@@ -143,6 +146,7 @@ CREATE TABLE IF NOT EXISTS "order_event" (
     last_px TEXT,
     last_qty TEXT,
     trigger_price TEXT,
+    activation_price TEXT,
     trigger_type TEXT,
     limit_offset TEXT,
     trailing_offset TEXT,
@@ -168,6 +172,8 @@ CREATE TABLE IF NOT EXISTS "order_event" (
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
+-- Bring databases created before trailing-stop activation-price persistence forward
+ALTER TABLE "order_event" ADD COLUMN IF NOT EXISTS activation_price TEXT;
 
 CREATE TABLE IF NOT EXISTS "order_position_index" (
     client_order_id TEXT PRIMARY KEY NOT NULL,

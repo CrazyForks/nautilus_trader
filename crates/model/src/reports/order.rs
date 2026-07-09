@@ -85,6 +85,8 @@ pub struct OrderStatusReport {
     pub price: Option<Price>,
     /// The order trigger price (STOP).
     pub trigger_price: Option<Price>,
+    /// The order activation price (trailing stop).
+    pub activation_price: Option<Price>,
     /// The trigger type for the order.
     pub trigger_type: Option<TriggerType>,
     /// The trailing offset for the orders limit price.
@@ -150,6 +152,7 @@ impl OrderStatusReport {
             expire_time: None,
             price: None,
             trigger_price: None,
+            activation_price: None,
             trigger_type: None,
             limit_offset: None,
             trailing_offset: None,
@@ -234,6 +237,13 @@ impl OrderStatusReport {
     #[must_use]
     pub const fn with_trigger_price(mut self, trigger_price: Price) -> Self {
         self.trigger_price = Some(trigger_price);
+        self
+    }
+
+    /// Sets the activation price.
+    #[must_use]
+    pub const fn with_activation_price(mut self, activation_price: Price) -> Self {
+        self.activation_price = Some(activation_price);
         self
     }
 
@@ -371,6 +381,7 @@ impl Display for OrderStatusReport {
                 expire_time={:?}, \
                 price={:?}, \
                 trigger_price={:?}, \
+                activation_price={:?}, \
                 trigger_type={:?}, \
                 limit_offset={:?}, \
                 trailing_offset={:?}, \
@@ -404,6 +415,7 @@ impl Display for OrderStatusReport {
             self.expire_time,
             self.price,
             self.trigger_price,
+            self.activation_price,
             self.trigger_type,
             self.limit_offset,
             self.trailing_offset,
